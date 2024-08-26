@@ -1,0 +1,45 @@
+{% extends 'finance_monitor/base.html' %}
+
+{% block content %}
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            text-align: center;
+            padding: 20px;
+        }
+        .card {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        a {
+            width: 200px;
+        }
+    </style>
+    
+    <div class="container">
+        <h1>Podsumowanie Roczne</h1>
+
+        <div class="card">
+            <p><strong>Łączne przychody:</strong> {{ total_income }} PLN</p>
+            <p><strong>Łączne wydatki:</strong> {{ total_expenses }} PLN</p>
+            <p><strong>Zysk netto:</strong> {{ balance }} PLN</p>
+            <p><strong>Łączna liczba faktur:</strong> {{ total_invoices }}</p>
+            <p><strong>Łączna liczba rzutów:</strong> {{ total_flocks }}</p>
+            
+             <p><a class="btn btn-secondary" href="{% url 'invoices' %}" role="button">Twoje faktury</a>
+            <br>
+             <p><a class="btn btn-secondary" href="{% url 'flocks' %}" role="button">Twoje rzuty</a>
+            <br>
+            <p><a class="btn btn-primary" href="{% url 'download_raport' %}" role="button">Pobierz raport</a>
+            <p>Roczny raport podsumuwujący koszty i przychody</p></p>
+        
+            
+        </div>
+    
+        
+    </div>
+{% endblock %}

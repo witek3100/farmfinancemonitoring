@@ -1,0 +1,74 @@
+{% extends 'finance_monitor/base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mb-4">Rzuty</h1>
+
+    <div class="accordion" id="invoicesAccordion">
+    
+        <div class="card">
+            <div class="card-header" id="headingExpenses">
+                <h2 class="mb-0">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseExpenses" aria-expanded="true" aria-controls="collapseExpenses">
+                        Trwające ⤵️
+                    </button>
+                </h2>
+            </div>
+            <div id="collapseExpenses" class="collapse show" aria-labelledby="headingExpenses" data-parent="#invoicesAccordion">
+                <div class="card-body">
+                     {% if flocks_in_progress %}
+                        <ul class="list-group">
+                            {% for flock in flocks_in_progress %}
+                                <a href="/flock/{{ flock.pk }}">
+                                    <li class="list-group-item" >
+                                        <b style="margin: 30px;">Numer: {{ flock.number }}</b>
+                                        <b style="margin: 30px;">Od: {{ flock.date_start }}</b>
+                                        <a style="margin: 30px;" class="btn btn-danger" href="/delete_flock/{{ flock.pk }}">Usuń</a>
+                                        <a style="margin: 30px;" class="btn btn-primary" href="/end_flock/{{ flock.pk }}">Zakończ</a>
+                                    </li>
+                                </a>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p>Brak rzutów.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header" id="headingIncomes">
+                <h2 class="mb-0">
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseIncomes" aria-expanded="false" aria-controls="collapseIncomes">
+                        Zakończone ⤵️
+                    </button>
+                </h2>
+            </div>
+            <div id="collapseIncomes" class="collapse" aria-labelledby="headingIncomes" data-parent="#invoicesAccordion">
+                <div class="card-body">
+                    {% if flocks_done %}
+                        <ul class="list-group">
+                            {% for flock in flocks_done %}
+                                <a href="/flock/{{ flock.pk }}">
+                                    <li class="list-group-item" >
+                                        <b style="margin: 30px;">Numer: {{ flock.number }}</b>
+                                        <b style="margin: 30px;">Od: {{ flock.date_start }}</b>
+                                        <b style="margin: 30px;">Do: {{ flock.date_end }}</b>
+                                        <a style="margin: 30px;" class="btn btn-danger" href="/delete_flock/{{ flock.pk }}">Usuń</a>
+                                    </li>
+                                </a>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p>Brak rzutów.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    
+        <div style="margin: 20px; display: flex; justify-content: center; align-items: center">
+            <a class="btn btn-primary" href="{% url 'add_flock' %}">Utwórz rzut</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

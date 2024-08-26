@@ -1,0 +1,26 @@
+{% extends 'finance_monitor/base.html' %}
+
+{% block content %}
+<div class="jumbotron">
+    <h1 class="display-4" style="display: flex; justify-content: center">Monitorowanie finansów fermy drobiu</h1>
+    <p class="lead"></p>
+    <hr class="my-4">
+    
+    <style>
+        a {
+            width: 250px;
+        }
+    </style>
+
+    <div style="display: flex; align-items: center; justify-content: center; flex-direction: column">
+    <a class="btn btn-primary btn-lg" href="{% url 'yearly_settlement' %}" role="button">Podsumowanie roczne</a>
+    <p>Zobacz podsumowanie wydatków i przychodzów z całego roku</p>
+    
+    <a class="btn btn-primary btn-lg" href="{% url 'invoices' %}" role="button">Faktury</a>
+    <p>Lista twoich faktur</p>
+    
+    <a class="btn btn-primary btn-lg" href="{% url 'flocks' %}" role="button">Rzuty</a>
+    <p>Lista twoich rzutów</p>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends 'finance_monitor/base.html' %}
+
+{% block content %}
+    <div class="container">
+    <h1 class="mb-4">Faktury dla rzutu numer {{ flock }}</h1>
+
+    <div class="accordion" id="invoicesAccordion">
+    
+        <div class="card">
+            <div class="card-header" id="headingExpenses">
+                <h2 class="mb-0">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseExpenses" aria-expanded="true" aria-controls="collapseExpenses">
+                        Wydatki ⤵️
+                    </button>
+                </h2>
+            </div>
+            <div id="collapseExpenses" class="collapse show" aria-labelledby="headingExpenses" data-parent="#invoicesAccordion">
+                <div class="card-body">
+                    {% if expenses %}
+                        <ul class="list-group">
+                            {% for invoice in expenses %}
+                                <a href="/invoice/{{ invoice.pk }}">
+                                    <li class="list-group-item">
+                                        DATA: {{ invoice.date }}: &nbsp  NUMER: {{ invoice.invoice_number }} &nbsp KWOTA: {{ invoice.amount }} PLN
+                                    </li>
+                                </a>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p>Brak wydatków.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header" id="headingIncomes">
+                <h2 class="mb-0">
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseIncomes" aria-expanded="false" aria-controls="collapseIncomes">
+                        Przychody ⤵️
+                    </button>
+                </h2>
+            </div>
+            <div id="collapseIncomes" class="collapse" aria-labelledby="headingIncomes" data-parent="#invoicesAccordion">
+                <div class="card-body">
+                    {% if incomes %}
+                        <ul class="list-group">
+                            {% for invoice in incomes %}
+                                <a href="/invoice/{{ invoice.pk }}">
+                                    <li class="list-group-item">
+                                        DATA: {{ invoice.date }}: &nbsp  NUMER: {{ invoice.invoice_number }} &nbsp KWOTA: {{ invoice.amount }} PLN
+                                    </li>
+                                </a>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p>Brak przychodów.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    
+        <div style="margin: 20px; display: flex; justify-content: center; align-items: center">
+            <a class="btn btn-primary"href="{% url 'add_invoice' %}">Dodaj fakture</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

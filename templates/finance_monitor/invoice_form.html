@@ -1,0 +1,89 @@
+{% extends 'finance_monitor/base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1 class="text-center mb-4">Dodaj Fakturę</h1>
+    
+    <div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">Formularz faktury</h4>
+                </div>
+                <div class="card-body">
+                    <form method="post" novalidate>
+                        {% csrf_token %}
+                        {% for field in form %}
+                            <div class="mb-3" id="{{ field.label }}">
+                                <label for="{{ field.id_for_label }}" class="form-label">{{ field.help_text }}</label>
+                                {{ field }}
+                                {% if field.id_for_label == 'id_flock' %}
+                                    <div style="font-size: 10px">Wybierz odpowiedni rzut z listy, jesli jest pusta, utwórzy nowy w sekcji "Rzuty"</div>
+                                {% endif %}
+                                {% if field.errors %}
+                                    <div class="text-danger">
+                                        {{ field.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                        
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-block">Dodaj</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div></div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const categorySelect = document.getElementById('category-select');
+        const amountField = document.getElementById('Amount');
+        const unitPriceField = document.getElementById('Unit price');
+        const waterUsageField = document.getElementById('Water usage');
+        const forageTypeField = document.getElementById('Forage type');
+        const paymentDeadline = document.getElementById('Payment deadline');
+        const drugName = document.getElementById('Drug name')
+        
+        function toggleFields() {
+            const category = categorySelect.value;
+            amountField.style.display = 'none';
+            unitPriceField.style.display = 'none';
+            waterUsageField.style.display = 'none';
+            forageTypeField.style.display = 'none';
+            paymentDeadline.style.display = 'none';
+            drugName.style.display = 'none';
+
+            if (category === '1') {
+                amountField.style.display = 'block';
+                unitPriceField.style.display = 'block';
+            } else if (category === '2') {
+                amountField.style.display = 'block';
+                unitPriceField.style.display = 'block';
+                forageTypeField.style.display = 'block'
+            } else if (category === '3') {
+                waterUsageField.style.display = 'none';
+            } else if (category === '5') {
+                amountField.style.display = 'block';
+                unitPriceField.style.display = 'block';
+                drugName.style.display = 'block';
+            }
+            else if (category === '8') {
+                amountField.style.display = 'block';
+                unitPriceField.style.display = 'block';
+            }   
+            else if (category === '10') {
+                paymentDeadline.style.display = 'block'
+            }   
+        }
+
+        categorySelect.addEventListener('change', toggleFields);
+
+        toggleFields();
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends 'finance_monitor/base.html' %}
+
+{% block content %}
+	<h1 class="mb-4">Faktura nr {{ invoice.invoice_number }}</h1>
+    
+    <ul class="list-group">
+        {% if invoice.date %}
+        <li class="list-group-item"><strong>Data:</strong> {{ invoice.date }}</li>
+        {% endif %}
+        
+        {% if invoice.cost %}
+        <li class="list-group-item"><strong>Łączna kwota:</strong> {{ invoice.cost }}</li>
+        {% endif %}
+        
+        {% if invoice.type %}
+        <li class="list-group-item"><strong>Typ:</strong> {{ invoice.get_type_display }}</li>
+        {% endif %}
+        
+        {% if invoice.category %}
+        <li class="list-group-item"><strong>Kategoria:</strong> {{ invoice.get_category_display }}</li>
+        {% endif %}
+        
+        {% if invoice.flock %}
+        <li class="list-group-item"><strong>Rzut:</strong> {{ invoice.flock }}</li>
+        {% endif %}
+        
+        {% if invoice.amount %}
+        <li class="list-group-item"><strong>Ilość:</strong> {{ invoice.amount }}</li>
+        {% endif %}
+        
+        {% if invoice.unit_price %}
+        <li class="list-group-item"><strong>Cena jednostkowa:</strong> {{ invoice.unit_price }}</li>
+        {% endif %}
+        
+        {% if invoice.water_usage %}
+        <li class="list-group-item"><strong>Zużycie wody:</strong> {{ invoice.water_usage }}</li>
+        {% endif %}
+        
+        {% if invoice.forage_type %}
+        <li class="list-group-item"><strong>Typ paszy:</strong> {{ invoice.get_forage_type_display }}</li>
+        {% endif %}
+        
+        {% if invoice.payment_deadline %}
+        <li class="list-group-item"><strong>Termin zapłaty:</strong> {{ invoice.payment_deadline }}</li>
+        {% endif %}
+        
+        {% if invoice.drug_name %}
+        <li class="list-group-item"><strong>Nazwa leku:</strong> {{ invoice.drug_name }}</li>
+        {% endif %}
+    </ul>
+    
+{% endblock %}
